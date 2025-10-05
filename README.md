@@ -18,11 +18,7 @@ Project structure (important files)
   - `stores/authStore.ts` — login/logout logic and small auth state
 - `package.json` — scripts and dependencies
 
-Key behavior
-- Authentication: login sends credentials to the backend login endpoint and receives a JWT token which is saved to localStorage. The axios instance attaches the token as `Authorization: Bearer <token>` for subsequent requests.
-- Activity Feed: `src/components/ActivityFeed.tsx` will attempt to load recent activity from the backend, and falls back to mock items if the API is not available.
-
-API / Backend
+# API / Backend 
 This frontend expects a separate backend API. You must run and have the backend reachable from the frontend. The base URL for the API is configurable via environment variables (see below). Some of the API endpoints the frontend interacts with:
 
 - POST /api/User/login — authenticate and receive { token, userId, username, role, profilePictureUrl }
@@ -86,9 +82,6 @@ Testing and linting
 Contributing
 - Fork or branch, add features or fixes, then open a pull request. Keep changes small and add tests where appropriate.
 
-License
-- This repository does not include a specific license file by default. If you want to make the project public, add a LICENSE file (for example the MIT license) and update this README.
-
 Contact / Backend
 - This frontend is designed to be paired with a backend API. If you need the backend repository or details about the API contract (models/payloads), see the public backend repository below.
 
@@ -104,5 +97,3 @@ Quick start summary
 2. Install deps: `npm install`.
 3. Start dev server: `npm run dev` (use Command Prompt on Windows if PowerShell blocks npm.ps1).
 4. Visit the app and login via the Login page (the app expects the backend to implement `/api/User/login`).
-
-If you'd like, I can also add a `.env.example`, CI config, or a short CONTRIBUTING.md — tell me which you'd prefer next.
