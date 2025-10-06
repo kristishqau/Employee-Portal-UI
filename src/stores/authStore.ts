@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { User, setAuthToken, clearAuth, getStoredUser } from '@/lib/auth';
+import { User, setAuthToken, clearAuth, getStoredUser, createDemoToken } from '@/lib/auth';
 import api from '@/lib/axios';
+import { DEMO_MODE, DEMO_USERS } from '@/lib/demoMode';
 
 interface AuthState {
   user: User | null;
@@ -21,10 +22,24 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   login: async (username: string, password: string) => {
-    // Send credentials in the request body as JSON (API expects application/json)
-    const response = await api.post('/api/User/login', { username, password });
+    // Check for demo mode login
+    if (DEMO_MODE) {
+      const demoUser = username === 'admin' ? DEMO_USERS.admin : DEMO_USERS.employee;
+      
+      // Verify demo credentials
+      if ((username === 'admin' && password === 'admin123') ||
+          (username === 'employee' && password === 'employee123')) {
+        const token = createDemoToken(demoUser);
+        setAuthToken(token);
+        set({ user: demoUser });
+        return;
+      }
+      throw new Error('Invalid demo credentials');
+    }
 
-  const { token, profilePictureUrl } = response.data;
+    // Regular API login if not in demo mode
+    const response = await api.post('/api/User/login', { username, password });
+    const { token, profilePictureUrl } = response.data;
     
     if (!token) {
       throw new Error('No token received from server');

@@ -1,6 +1,24 @@
 # Employee Portal — Frontend
 
-This repository contains the frontend for the Employee Portal application. It's a Vite + React + TypeScript single-page application (SPA) built with the shadcn/ui-style component set and Radix primitives. The frontend is intended to be used together with a separate backend API (ASP.NET Core in my setup) which provides authentication and the business endpoints for users, projects and tasks.
+This repository contains the frontend for the Employee Portal application. It's a Vite + React + TypeScript single-page application (SPA) built with the shadcn/ui-style component set and Radix primitives. The frontend can be used in demo mode without a backend, or connected to a backend API (ASP.NET Core in my setup) for full functionality.
+
+## Try it out! 🚀
+
+Want to see it in action without setting up a backend? Use our demo mode:
+
+1. Set `VITE_DEMO_MODE=true` in your `.env` or `.env.local` file
+2. Run the application (`npm install && npm run dev`)
+3. Login with one of these demo accounts:
+   - Admin: username `admin` / password `admin123`
+   - Employee: username `employee` / password `employee123`
+
+In demo mode, you can:
+- Browse projects and tasks
+- Create new projects (as admin)
+- Create and assign tasks
+- Mark tasks as complete/incomplete
+- Delete tasks (as admin)
+All changes are stored in memory during your session.
 
 Overview
 - Built with: Vite, React, TypeScript
@@ -43,6 +61,9 @@ Create a `.env` or `.env.local` file in the project root (not committed) with va
 ```env
 # Backend API base URL (change to your backend host and port)
 VITE_API_BASE_URL=https://localhost:5001
+
+# Enable demo mode to run without a backend
+VITE_DEMO_MODE=true
 ```
 
 Notes:
@@ -100,9 +121,18 @@ Backend repository
 --------------------------
 Quick start summary
 
-1. Set `VITE_API_BASE_URL` in `.env.local` to your backend URL (for example: `http://localhost:5000`).
-2. Install deps: `npm install`.
-3. Start dev server: `npm run dev` (use Command Prompt on Windows if PowerShell blocks npm.ps1).
-4. Visit the app and login via the Login page (the app expects the backend to implement `/api/User/login`).
+Option 1: Try with Demo Mode
+1. Create `.env.local` and set `VITE_DEMO_MODE=true`
+2. Install deps: `npm install`
+3. Start dev server: `npm run dev` (use Command Prompt on Windows if PowerShell blocks npm.ps1)
+4. Login with demo credentials:
+   - Admin: username `admin` / password `admin123`
+   - Employee: username `employee` / password `employee123`
+
+Option 2: Connect to Backend
+1. Set `VITE_API_BASE_URL` in `.env.local` to your backend URL (for example: `http://localhost:5000`)
+2. Install deps: `npm install`
+3. Start dev server: `npm run dev` (use Command Prompt on Windows if PowerShell blocks npm.ps1)
+4. Visit the app and login via the Login page (the app expects the backend to implement `/api/User/login`)
 
 If you'd like, I can also add a `.env.example`, CI config, or a short CONTRIBUTING.md — tell me which you'd prefer next.
