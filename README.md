@@ -2,23 +2,25 @@
 
 This repository contains the frontend for the Employee Portal application. It's a Vite + React + TypeScript single-page application (SPA) built with the shadcn/ui-style component set and Radix primitives. The frontend can be used in demo mode without a backend, or connected to a backend API (ASP.NET Core in my setup) for full functionality.
 
-## Try it out! 🚀
+## Demo Mode
 
-Want to see it in action without setting up a backend? Use our demo mode:
+The application includes a demo mode for testing without a backend:
 
-1. Set `VITE_DEMO_MODE=true` in your `.env` or `.env.local` file
-2. Run the application (`npm install && npm run dev`)
-3. Login with one of these demo accounts:
-   - Admin: username `admin` / password `admin123`
-   - Employee: username `employee` / password `employee123`
+```env
+VITE_DEMO_MODE=true
+```
 
-In demo mode, you can:
-- Browse projects and tasks
-- Create new projects (as admin)
-- Create and assign tasks
-- Mark tasks as complete/incomplete
-- Delete tasks (as admin)
-All changes are stored in memory during your session.
+Demo Accounts:
+- Admin: `admin` / `admin123`
+- Employee: `employee` / `employee123`
+
+Features available in demo mode:
+- Project management
+- Task creation and assignment
+- Task status updates
+- Admin-specific operations (project creation, task deletion)
+
+Note: Demo data persists only during the browser session.
 
 Overview
 - Built with: Vite, React, TypeScript
@@ -36,11 +38,7 @@ Project structure (important files)
   - `stores/authStore.ts` — login/logout logic and small auth state
 - `package.json` — scripts and dependencies
 
-Key behavior
-- Authentication: login sends credentials to the backend login endpoint and receives a JWT token which is saved to localStorage. The axios instance attaches the token as `Authorization: Bearer <token>` for subsequent requests.
-- Activity Feed: `src/components/ActivityFeed.tsx` will attempt to load recent activity from the backend, and falls back to mock items if the API is not available.
-
-API / Backend
+# API / Backend 
 This frontend expects a separate backend API. You must run and have the backend reachable from the frontend. The base URL for the API is configurable via environment variables (see below). Some of the API endpoints the frontend interacts with:
 
 - POST /api/User/login — authenticate and receive { token, userId, username, role, profilePictureUrl }
@@ -107,32 +105,37 @@ Testing and linting
 Contributing
 - Fork or branch, add features or fixes, then open a pull request. Keep changes small and add tests where appropriate.
 
-License
-- This repository does not include a specific license file by default. If you want to make the project public, add a LICENSE file (for example the MIT license) and update this README.
+## Backend Repository
 
-Contact / Backend
-- This frontend is designed to be paired with a backend API. If you need the backend repository or details about the API contract (models/payloads), see the public backend repository below.
+The backend API implementation is available at:
+https://github.com/kristishqau/ASP.NET_Web_API
 
-Backend repository
-- The backend for this project is available publicly on GitHub: https://github.com/kristishqau/ASP.NET_Web_API
+Clone the repository and follow its setup instructions to run the backend locally.
 
-  This repository contains the ASP.NET Web API implementation that the frontend expects (authentication, users, projects, tasks, etc.). Clone or browse that repo and follow its README for instructions to run the backend locally. Once the backend is running, update `VITE_API_BASE_URL` in this frontend to point to the backend's base URL (for example: `http://localhost:5000`).
+## Quick Start
 
---------------------------
-Quick start summary
+### Demo Mode Setup
 
-Option 1: Try with Demo Mode
-1. Create `.env.local` and set `VITE_DEMO_MODE=true`
-2. Install deps: `npm install`
-3. Start dev server: `npm run dev` (use Command Prompt on Windows if PowerShell blocks npm.ps1)
-4. Login with demo credentials:
-   - Admin: username `admin` / password `admin123`
-   - Employee: username `employee` / password `employee123`
+1. Create `.env.local`:
+```env
+VITE_DEMO_MODE=true
+```
+2. Install and run:
+```bash
+npm install
+npm run dev
+```
+3. Login with demo credentials
 
-Option 2: Connect to Backend
-1. Set `VITE_API_BASE_URL` in `.env.local` to your backend URL (for example: `http://localhost:5000`)
-2. Install deps: `npm install`
-3. Start dev server: `npm run dev` (use Command Prompt on Windows if PowerShell blocks npm.ps1)
-4. Visit the app and login via the Login page (the app expects the backend to implement `/api/User/login`)
+### Production Setup
 
-If you'd like, I can also add a `.env.example`, CI config, or a short CONTRIBUTING.md — tell me which you'd prefer next.
+1. Create `.env.local`:
+```env
+VITE_API_BASE_URL=http://localhost:5000
+```
+2. Install and run:
+```bash
+npm install
+npm run dev
+```
+3. Connect to your backend API
